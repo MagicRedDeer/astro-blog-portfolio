@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '../atoms/SectionHeading';
+import ProjectCard from '../molecules/ProjectCard';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section id="projects" class="mb-16">
+  <SectionHeading>Projects</SectionHeading>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {projects.map((project) => (
+      <ProjectCard {...project.data} />
+    ))}
+  </div>
+</section>

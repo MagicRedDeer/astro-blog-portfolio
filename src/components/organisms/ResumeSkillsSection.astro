@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '../atoms/SectionHeading';
+import SkillCard from '../molecules/SkillCard';
+
+interface Props {
+  skills: CollectionEntry<'skills'>[];
+}
+
+const { skills } = Astro.props;
+
+// First group by category, then by subcategory
+const skillsByCategory = skills.reduce((acc, skill) => {
+  const category = skill.data.category;
+  const subcategory = skill.data.subcategory;
+  
+  if (!acc[category]) {
+    acc[category] = {};
+  }
+  
+  if (!acc[category][subcategory]) {
+    acc[category][subcategory] = [];
+  }
+  
+  acc[category][subcategory].push(skill);
+  return acc;
+}, {} as Record<string, Record<string, typeof skills>>);
+
+// Sort skills by proficiency within each subcategory
+Object.values(skillsByCategory).forEach(subcategories => {
+  Object.values(subcategories).forEach(skills => {
+    skills.sort((a, b) => b.data.proficiency - a.data.proficiency);
+  });
+});
+---
+
+<section id="skills" class="mb-16">
+  <SectionHeading>Skills</SectionHeading>
+  <div class="space-y-16">
+    {Object.entries(skillsByCategory).map(([category, subcategories]) => (
+      <div class="space-y-12">
+        <h3 class="text-2xl font-bold text-gray-900">{category} Skills</h3>
+        {Object.entries(subcategories).map(([subcategory, skills]) => (
+          <div class="space-y-6">
+            <h4 class="text-xl font-semibold text-gray-800">{subcategory}</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {skills.map((skill) => (
+                <SkillCard 
+                  {...skill.data}
+                  key={skill.data.name}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>

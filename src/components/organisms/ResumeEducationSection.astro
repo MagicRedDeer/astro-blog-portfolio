@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '../atoms/SectionHeading';
+import { formatDate } from '../../utils/formatDate';
+
+interface Props {
+  education: CollectionEntry<'education'>[];
+}
+
+const { education } = Astro.props;
+---
+
+<section id="education" class="mb-16">
+  <SectionHeading>Education</SectionHeading>
+  <div class="space-y-6">
+    {education.map((edu) => (
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-900">{edu.data.degree}</h3>
+        <div class="text-primary-600 font-medium mb-2">{edu.data.institution}</div>
+        <div class="text-gray-500 text-sm mb-4">
+          {formatDate(edu.data.startDate)} - {formatDate(edu.data.endDate)}
+        </div>
+        <p class="text-gray-600">{edu.data.description}</p>
+        {edu.data.projects && edu.data.projects.length > 0 && (
+          <div class="mt-4">
+            <h4 class="text-sm font-semibold text-gray-700 mb-2">Notable Projects:</h4>
+            <ul class="list-disc list-inside text-gray-600">
+              {edu.data.projects.map((project) => (
+                <li>{project}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

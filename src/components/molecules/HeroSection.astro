@@ -1,0 +1,45 @@
+---
+import Button from '../atoms/Button';
+import Typewriter from '../atoms/Typewriter';
+import { Download, Send } from 'lucide-preact';
+
+const jobTitles = [
+  "Full Stack Developer",
+  "Python Developer",
+  "Software Engineer",
+  "DevOps Engineer",
+  "Cloud Architect"
+];
+---
+
+<section class="relative bg-gradient-to-b from-primary-50 to-white py-20">
+  <div class="container">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Hi, I'm <span class="text-primary-600">Your Name</span>
+        <br />
+        <span class="text-primary-600">
+          <Typewriter client:load words={jobTitles} />
+        </span>
+      </h1>
+      <p class="text-lg text-gray-600 mb-8">
+        I build exceptional digital experiences that make people's lives easier.
+        With expertise in modern web technologies, I create scalable and performant applications.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/contact" className="inline-flex items-center">
+          <Send className="mr-2 h-4 w-4" />
+          Contact Me
+        </Button>
+        <Button
+          variant="outline"
+          href="/resume.pdf"
+          className="inline-flex items-center"
+        >
+          <Download className="mr-2 h-4 w-4" />
+          Download Resume
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

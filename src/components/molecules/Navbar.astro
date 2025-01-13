@@ -1,0 +1,39 @@
+---
+import { Github, Linkedin, Mail } from 'lucide-preact';
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+  <nav class="container mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="/" class="text-xl font-bold text-primary-600">Portfolio</a>
+    
+    <div class="hidden md:flex items-center space-x-8">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class="text-gray-600 hover:text-primary-600 transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary-600">
+        <Github size={20} />
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-primary-600">
+        <Linkedin size={20} />
+      </a>
+      <a href="mailto:contact@example.com" class="text-gray-600 hover:text-primary-600">
+        <Mail size={20} />
+      </a>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SectionHeading from '../atoms/SectionHeading';
+import ExperienceCard from '../molecules/ExperienceCard';
+
+interface Props {
+  workHistory: CollectionEntry<'workHistory'>[];
+}
+
+const {workHistory} = Astro.props;
+
+---
+
+<section id="experience" class="mb-16">
+  <SectionHeading>Work Experience</SectionHeading>
+  <div class="space-y-6">
+    {workHistory.map((job) => {
+      return <ExperienceCard {...job.data} slug={job.slug} />
+    })}
+  </div>
+</section>

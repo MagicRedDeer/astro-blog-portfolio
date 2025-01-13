@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { formatDate } from '../../utils/formatDate';
+import { ArrowLeft } from 'lucide-preact';
+
+export async function getStaticPaths() {
+  const educationEntries = await getCollection('education');
+  return educationEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.degree} at ${entry.data.institution} - Education`}>
+  <div class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <a href="/resume#education" class="inline-flex items-center text-primary-600 hover:text-primary-700 mb-8">
+        <ArrowLeft className="w-4 h-4 mr-2" />
+        Back to Resume
+      </a>
+      
+      <article class="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8">
+        <header class="mb-8">
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">{entry.data.degree}</h1>
+          <div class="text-xl text-primary-600 mb-2">{entry.data.institution}</div>
+          <div class="text-gray-600 mb-4">
+            {formatDate(entry.data.startDate)} - {formatDate(entry.data.endDate)}
+          </div>
+        </header>
+        
+        <Content />
+
+        {entry.data.projects && entry.data.projects.length > 0 && (
+          <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Notable Projects</h2>
+            <ul class="list-disc list-inside space-y-2">
+              {entry.data.projects.map(project => (
+                <li>{project}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </article>
+    </div>
+  </div>
+</Layout>

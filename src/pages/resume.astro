@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ScrollspyNav from '../components/molecules/ScrollspyNav';
+import ResumeHeader from '../components/molecules/ResumeHeader';
+import ResumeSkillsSection from '../components/organisms/ResumeSkillsSection.astro';
+import ResumeExperienceSection from '../components/organisms/ResumeExperienceSection.astro';
+import ResumeProjectsSection from '../components/organisms/ResumeProjectsSection.astro';
+import ResumeEducationSection from '../components/organisms/ResumeEducationSection.astro';
+import ResumeCertificationsSection from '../components/organisms/ResumeCertificationsSection.astro';
+
+const skills = await getCollection('skills');
+const workHistory = await getCollection('workHistory');
+const projects = await getCollection('projects');
+const education = await getCollection('education');
+const certifications = await getCollection('certifications');
+
+const sections = [
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'education', label: 'Education' },
+  { id: 'certifications', label: 'Certifications' },
+];
+---
+
+<Layout 
+  title="Resume - Your Name"
+  description="Professional experience, skills, and achievements of Your Name"
+>
+  <div class="bg-gray-50 py-8">
+    <div class="container">
+      <ResumeHeader client:load title="Resume" />
+
+      <div class="grid grid-cols-12 gap-8">
+        <aside class="col-span-12 lg:col-span-3">
+          <ScrollspyNav client:load sections={sections} />
+        </aside>
+
+        <div class="col-span-12 lg:col-span-9">
+          <ResumeSkillsSection skills={skills} />
+          <ResumeExperienceSection workHistory={workHistory} />
+          <ResumeProjectsSection projects={projects} />
+          <ResumeEducationSection education={education} />
+          <ResumeCertificationsSection certifications={certifications} />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogContent from '../../components/blog/BlogContent';
+import { transformBlogPosts, sortBlogPostsByDate } from '../../lib/utils/blogUtils';
+
+const allPosts = await getCollection('blog');
+const transformedPosts = transformBlogPosts(allPosts);
+const sortedPosts = sortBlogPostsByDate(transformedPosts);
+---
+
+<Layout 
+  title="Blog - Your Name"
+  description="Technical articles and insights about web development, software engineering, and technology"
+>
+  <div class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-gray-900 mb-8">Blog</h1>
+      <BlogContent client:load posts={sortedPosts} />
+    </div>
+  </div>
+</Layout>
