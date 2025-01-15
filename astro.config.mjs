@@ -6,5 +6,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     preact()
-  ]
+  ],
+  site: 'https://magicreddeer.github.io',
+  base: '/astro-blog-portfolio/'
 });

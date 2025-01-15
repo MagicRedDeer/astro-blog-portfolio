@@ -1,4 +1,5 @@
-import type { ProjectContent } from '../../lib/types/content';
+import type { ProjectContent } from "../../lib/types/content";
+import { createPath } from "../../utils/path";
 
 type ProjectCardProps = ProjectContent;
 
@@ -16,7 +17,7 @@ export default function ProjectCard({
       <h3 class="text-xl font-semibold text-gray-900">{name}</h3>
       <div class="text-gray-500 text-sm mb-4">{year}</div>
       <p class="text-gray-600 mb-4">{description}</p>
-      
+
       <div class="flex flex-wrap gap-2 mb-4">
         {skills.map((skill) => (
           <span
@@ -30,7 +31,7 @@ export default function ProjectCard({
 
       <div class="flex items-center gap-4">
         <a
-          href={`/projects/${slug}`}
+          href={createPath(`projects/${slug}`)}
           class="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center"
         >
           Read more
@@ -48,7 +49,7 @@ export default function ProjectCard({
             />
           </svg>
         </a>
-        
+
         {repository && (
           <a
             href={repository}
@@ -59,7 +60,7 @@ export default function ProjectCard({
             Repository
           </a>
         )}
-        
+
         {homepage && (
           <a
             href={homepage}

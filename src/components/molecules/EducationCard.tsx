@@ -1,5 +1,6 @@
-import { formatDate } from '../../utils/formatDate';
-import type { EducationContent } from '../../lib/types/content';
+import { formatDate } from "../../utils/formatDate";
+import { createPath } from "../../utils/path";
+import type { EducationContent } from "../../lib/types/content";
 
 type EducationCardProps = EducationContent;
 
@@ -20,9 +21,9 @@ export default function EducationCard({
         {formatDate(startDate)} - {formatDate(endDate)}
       </div>
       <p class="text-gray-600 mb-4">{description}</p>
-      
+
       <a
-        href={`/education/${slug}`}
+        href={createPath(`education/${slug}`)}
         class="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center"
       >
         Read more

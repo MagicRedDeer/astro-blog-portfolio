@@ -1,4 +1,5 @@
-import { formatDate } from '../../utils/formatDate';
+import { formatDate } from "../../utils/formatDate";
+import { createPath } from "../../utils/path";
 
 type ExperienceCardProps = {
   title: string;
@@ -26,7 +27,8 @@ export default function ExperienceCard({
       <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
       <div className="text-primary-600 font-medium mb-2">{company}</div>
       <div className="text-gray-500 text-sm mb-4">
-        {location} • {formatDate(startDate)} - {endDate ? formatDate(endDate) : 'Present'}
+        {location} • {formatDate(startDate)} -{" "}
+        {endDate ? formatDate(endDate) : "Present"}
       </div>
       <p className="text-gray-600 mb-4">{description}</p>
       <div className="flex flex-wrap gap-2 mb-4">
@@ -40,7 +42,7 @@ export default function ExperienceCard({
         ))}
       </div>
       <a
-        href={`/work/${slug}`}
+        href={createPath(`work/${slug}`)}
         className="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center"
       >
         Read more

@@ -1,22 +1,23 @@
 ---
 import { Github, Linkedin, Mail } from 'lucide-preact';
+import { createPath } from '../../utils/path';
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/resume', label: 'Resume' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
+  { href: '', label: 'Home' },
+  { href: 'resume', label: 'Resume' },
+  { href: 'blog', label: 'Blog' },
+  { href: 'contact', label: 'Contact' },
 ];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
   <nav class="container mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="/" class="text-xl font-bold text-primary-600">Portfolio</a>
+    <a href={createPath('')} class="text-xl font-bold text-primary-600">Portfolio</a>
     
     <div class="hidden md:flex items-center space-x-8">
       {navItems.map(item => (
         <a
-          href={item.href}
+          href={createPath(item.href)}
           class="text-gray-600 hover:text-primary-600 transition-colors"
         >
           {item.label}
